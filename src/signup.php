@@ -29,8 +29,8 @@
 
      //Step 5: Validate result
      if($res){
-        echo "User has been created succesfully !!!"
+        echo "User has been created succesfully !!!";
      }else{
-        echo "Something wrong"
+        echo "Something wrong";
      }
-    <?php
+    ?>
