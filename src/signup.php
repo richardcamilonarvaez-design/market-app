@@ -10,6 +10,8 @@
     $e_mail = $_POST['email'];
     $p_wd = $_POST['passwd'];
 
+    $enc_pass = password_hash($p_wd, PASSWORD_BCRYPT);
+
     //Step 3: create query to insert into
     $query="
         INSERT INTO users (
@@ -20,7 +22,12 @@
             email,
             password
         ) VALUES (
-            '$f_name', '$l_name', '$m_number', '$id_number', '$e_mail', '$p_wd'
+            '$f_name', 
+            '$l_name', 
+            '$m_number', 
+            '$id_number', 
+            '$e_mail', 
+            '$enc_pass'
         )
     ";
 
