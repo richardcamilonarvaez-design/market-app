@@ -10,7 +10,7 @@
     $e_mail = $_POST['email'];
     $p_wd = $_POST['passwd'];
 
-    $enc_pass = password_hash($p_wd, PASSWORD_BCRYPT);
+    $enc_pass = password_hash($p_wd, PASSWORD_DEFAULT);
 
     //Step 3: create query to insert into
     $query="
