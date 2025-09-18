@@ -16,10 +16,10 @@
         SELECT
             u.email
         FROM
-            users.u
+            users u
         WHERE
             email='$e_mail' or id_number='$id_number'
-            LIMIT 1
+        LIMIT 1
     ";
     $res_check=pg_query($conn, $check_email);
     if(pg_num_rows($res_check)>0){
@@ -41,7 +41,7 @@
                 '$m_number', 
                 '$id_number', 
                 '$e_mail', 
-                '$enc_pass'
+                '$p_wd'
             )
         ";
 
