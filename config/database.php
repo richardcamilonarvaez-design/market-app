@@ -31,7 +31,11 @@
     ";
 
     $conn_supa=pg_connect($supa_data_connection);
+<<<<<<< HEAD
     $conn_local=pg_connect($local_data_connection);
+=======
+    $conn_local=pg_connect($supa_data_connection);
+>>>>>>> origin/recuperar-commit
 
     if(!$conn_supa){
         echo"Error ".pg_last_error();
