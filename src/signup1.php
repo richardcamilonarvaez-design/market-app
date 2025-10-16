@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market-Register</title>
+    <link rel ="icon" type="image/png" href="icons/market_main1.png">
+</head>
+<body bgcolor="C1DBD8">
+    <center><strong><h1>REGISTER:</h1></strong></center>
+    <form name="register-form" action="signup.php" method="post">
+        <table border="0" align="center"> 
+            <tr><td><label>Firstname: </label></td></tr>
+            <tr><td><input type="text" name="fname" placeholder="Firstname" required></td></tr>
+            <tr><td><label>Lastname: </label></td></tr>
+            <tr><td><input type="text" name="lname" placeholder="Lastname" required></td></tr>
+            <tr><td><label>Address: </label></td></tr>
+            <tr><td><input type="text" name="" placeholder="Lastname" required></td></tr>
+            <tr><td><label>Moblie number: </label><br></td></tr>
+            <tr><td><input type="text" name="mnumber" placeholder="Mobile number" required></td></tr>
+            <tr><td><label>Identification number: </label></td></tr>
+            <tr><td> <input type="text" name="idnumber"placeholder="Identificatin number" required></td></tr>
+            <tr><td><label>Email: </label></td></tr>
+            <tr><td><input type="email" name="email" placeholder="Email" required></td></tr>
+            <tr><td><label>Pasword: </label></td></tr>
+            <tr><td><input type="password" name="passwd" placeholder="Password" required><br></td></tr>
+            <tr><td style="text-align: center;" align="center"><button style="background-color: blue; color: white; border: none; padding: 10px 20px; cursor: pointer;">Register </button></td></tr>
+            <tr><td>
+                <select name="id" required>
+                    <option value="">Select a Country</option>
+                    <?php
+                    // Cargar países para el combo box
+                    $sql = "SELECT code, name FROM cities ORDER BY name";
+                    $res = pg_query($conn_supa, $sql);
+                    if ($res && pg_num_rows($res) > 0) {
+                        while ($row = pg_fetch_assoc($res)) {
+                            echo "<option value='" . htmlspecialchars($row['code']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+                        }
+                    } else {
+                        echo "<option value=''>No countries found</option>";
+                    }
+                    ?>
+                </select>
+            </td></tr>
+            <tr><td>
+                <select name="id" required>
+                    <option value="">Select a Country</option>
+                    <?php
+                    // Cargar países para el combo box
+                    $sql = "SELECT code, name FROM cities ORDER BY name";
+                    $res = pg_query($conn_supa, $sql);
+                    if ($res && pg_num_rows($res) > 0) {
+                        while ($row = pg_fetch_assoc($res)) {
+                            echo "<option value='" . htmlspecialchars($row['code']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+                        }
+                    } else {
+                        echo "<option value=''>No countries found</option>";
+                    }
+                    ?>
+                </select>
+            </td></tr>
+        </table>
+    </form>
+
+</body>
+</html>
