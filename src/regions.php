@@ -1,89 +1,109 @@
 <?php
-// Step 1: get database access
-require('../config/database.php');
+require('../config/database.php'); // Conexión a Supabase
 
-// Step 2: If form submitted, process insert
+$message = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Recibir datos del formulario
     $name = trim($_POST['name']);
     $abbrev = trim($_POST['abbrev']);
     $code = trim($_POST['code']);
     $status_input = trim($_POST['status']);
-    $country_code = trim($_POST['country_code']);  // el valor del combo box
+    $country_id = intval($_POST['country_id']); // del combo box
 
-    // Convertir status string a boolean para la DB
+    // Convertir status a boolean
     $status = ($status_input === 'active') ? 'TRUE' : 'FALSE';
 
-    // Puedes agregar validaciones aquí si quieres
-
-    // Insertar nuevo region
-    $query = "
-        INSERT INTO region (name, abbrev, code, status, country_code)
-        VALUES ('$name', '$abbrev', '$code', $status, '$country_code')
-    ";
-
-    $res = pg_query($conn_supa, $query);
-
-    if ($res) {
-        echo "<script>alert('Region registered successfully');</script>";
-        header('refresh:0; url=regions.php');
-        exit;
+    // Validar campos obligatorios
+    if (empty($name) || empty($abbrev) || empty($code) || $country_id <= 0) {
+        $message = "⚠️ Completa todos los campos.";
     } else {
-        echo "Something went wrong with region insertion";
+        // Revisar si el código ya existe
+        $check_query = "SELECT code FROM regions WHERE code = $1 LIMIT 1";
+        $res_check = pg_query_params($conn_supa, $check_query, [$code]);
+
+        if ($res_check && pg_num_rows($res_check) > 0) {
+            $message = "⚠️ La región con este código ya existe.";
+        } else {
+            // Insertar región con id_country
+            $insert_query = "
+                INSERT INTO regions (name, abbrev, code, status, id_country)
+                VALUES ($1, $2, $3, $4, $5)
+            ";
+            $res = pg_query_params($conn_supa, $insert_query, [$name, $abbrev, $code, $status, $country_id]);
+
+            if ($res) {
+                echo "<script>
+                        alert('Región registrada exitosamente');
+                        window.location.href='cities.php';
+                      </script>";
+                exit;
+            } else {
+                $message = "❌ Error al registrar la región: " . pg_last_error($conn_supa);
+            }
+        }
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <title>Register Region</title>
+    <meta charset="UTF-8">
+    <title>Registrar Región</title>
 </head>
 <body bgcolor="C1DBD8">
-    <center><h1>Register Region</h1></center>
-    <form action="cities.php" method="post">
+    <center><h1>Registrar Región</h1></center>
+
+    <?php if (!empty($message)): ?>
+        <center><p style="color: blue; font-weight: bold;"><?php echo $message; ?></p></center>
+    <?php endif; ?>
+
+    <form action="regions.php" method="post">
         <table border="0" align="center">
-            <tr><td><label>Name:</label></td></tr>
-            <tr><td><input type="text" name="name" placeholder="Name" required></td></tr>
+            <tr><td><label>Nombre:</label></td></tr>
+            <tr><td><input type="text" name="name" placeholder="Nombre" required></td></tr>
 
-            <tr><td><label>Abbrev:</label></td></tr>
-            <tr><td><input type="text" name="abbrev" placeholder="Abbrev" required></td></tr>
+            <tr><td><label>Abreviatura:</label></td></tr>
+            <tr><td><input type="text" name="abbrev" placeholder="Abreviatura" required></td></tr>
 
-            <tr><td><label>Code:</label></td></tr>
-            <tr><td><input type="text" name="code" placeholder="Code" required></td></tr>
+            <tr><td><label>Código:</label></td></tr>
+            <tr><td><input type="text" name="code" placeholder="Código" required></td></tr>
 
-            <tr><td><label>Status:</label></td></tr>
+            <tr><td><label>Estado:</label></td></tr>
             <tr><td>
                 <select name="status" required>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
+                    <option value="active">Activo</option>
+                    <option value="inactive">Inactivo</option>
                 </select>
             </td></tr>
 
-            <tr><td><label>Country:</label></td></tr>
+            <tr><td><label>País:</label></td></tr>
             <tr><td>
-                <select name="country_code" required>
-                    <option value="">Select a Country</option>
+                <select name="country_id" required>
+                    <option value="">Seleccione un país</option>
                     <?php
-                    // Cargar países para el combo box
-                    $sql = "SELECT code, name FROM country ORDER BY name";
+                    $sql = "SELECT id, name FROM country ORDER BY name";
                     $res = pg_query($conn_supa, $sql);
                     if ($res && pg_num_rows($res) > 0) {
                         while ($row = pg_fetch_assoc($res)) {
-                            echo "<option value='" . htmlspecialchars($row['code']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+                            echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['name']) . "</option>";
                         }
                     } else {
-                        echo "<option value=''>No countries found</option>";
+                        echo "<option value=''>No hay países disponibles</option>";
                     }
                     ?>
                 </select>
             </td></tr>
 
             <tr><td style="text-align:center;">
-                <button style="background-color:blue; color:white; padding:10px 20px; border:none; cursor:pointer;">Register Region</button>
+                <button style="background-color:blue; color:white; padding:10px 20px; border:none; cursor:pointer;">
+                    Registrar Región
+                </button>
             </td></tr>
         </table>
     </form>
 </body>
 </html>
+
 
