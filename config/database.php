@@ -11,6 +11,7 @@
     $local_host ="localhost"; //127.0.0.1
     $local_user ="postgres";
     $local_password= "unicesmag";
+    $local_password= "Joker9137";
     $local_dbname="marketapp";
     $local_port= "5432"; //puerto por defecto de postgres
 

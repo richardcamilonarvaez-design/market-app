@@ -61,11 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Market - Register City</title>
 </head>
-<body bgcolor="C1DBD8">
+<body bgcolor="#C1DBD8">
     <center><h1>REGISTER CITY</h1></center>
 
     <?php if (!empty($message)) : ?>
-        <center><p style="color: blue; font-weight: bold;"><?php echo $message; ?></p></center>
+        <center><p style="color: blue; font-weight: bold;"><?php echo htmlspecialchars($message); ?></p></center>
     <?php endif; ?>
 
     <form action="cities.php" method="post">
@@ -106,7 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </td></tr>
 
             <tr><td style="text-align:center;">
-                <button style="background-color:blue; color:white; padding:10px 20px; border:none; cursor:pointer;">Register City</button>
+                <button style="background-color:blue; color:white; padding:10px 20px; border:none; cursor:pointer;">
+                    Register City
+                </button>
             </td></tr>
         </table>
     </form>
