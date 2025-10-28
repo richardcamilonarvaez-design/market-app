@@ -4,7 +4,7 @@ require('../config/database.php');
 
 // Step 2: check Supabase connection
 if (!$conn_supa) {
-    echo "<p style='color:red; text-align:center;'>❌ Connection failed!</p>";
+    echo "<p style='color:red; text-align:center;'>Connection failed!</p>";
     exit;
 } else {
     echo "<p style='color:green; text-align:center;'>Connection successfully!</p>";

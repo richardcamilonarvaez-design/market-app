@@ -16,14 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validar campos obligatorios
     if (empty($name) || empty($abbrev) || empty($code) || $country_id <= 0) {
-        $message = "⚠️ Please complete all fields.";
+        $message = "Please complete all fields.";
     } else {
         // Revisar si el código ya existe
         $check_query = "SELECT code FROM regions WHERE code = $1 LIMIT 1";
         $res_check = pg_query_params($conn_supa, $check_query, [$code]);
 
         if ($res_check && pg_num_rows($res_check) > 0) {
-            $message = "⚠️ A region with this code already exists.";
+            $message = "A region with this code already exists.";
         } else {
             // Insertar región con id_country
             $insert_query = "
@@ -34,12 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($res) {
                 echo "<script>
-                        alert('✅ Region registered successfully!');
+                        alert('Region registered successfully!');
                         window.location.href='cities.php';
                       </script>";
                 exit;
             } else {
-                $message = "❌ Error registering region: " . pg_last_error($conn_supa);
+                $message = "Error registering region: " . pg_last_error($conn_supa);
             }
         }
     }

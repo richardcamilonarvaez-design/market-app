@@ -24,14 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Step 4: validate required fields
     if (empty($name) || empty($abbrev) || empty($code) || $region_id <= 0) {
-        $message = "⚠️ Please complete all fields.";
+        $message = "Please complete all fields.";
     } else {
         // Step 5: check if city code already exists
         $check_query = "SELECT code FROM city WHERE code = $1 LIMIT 1";
         $res_check = pg_query_params($conn_supa, $check_query, [$code]);
 
         if ($res_check && pg_num_rows($res_check) > 0) {
-            $message = "⚠️ A city with this code already exists.";
+            $message = "A city with this code already exists.";
         } else {
             // Step 6: insert city
             $insert_query = "
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                       </script>";
                 exit;
             } else {
-                $message = "❌ Error inserting city: " . pg_last_error($conn_supa);
+                $message = "Error inserting city: " . pg_last_error($conn_supa);
             }
         }
     }
