@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market - Register Country</title>
+    <link rel="icon" type="image/png" href="icons/market_main1.png">
+</head>
+<body bgcolor="#C1DBD8">
+    <center>
+        <h1><strong>REGISTER COUNTRY:</strong></h1>
+    </center>
+
+    <form name="register-form" action="countries.php" method="post">
+        <table border="0" align="center">
+            <tr>
+                <td><label>Name:</label></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="name" placeholder="Name" required></td>
+            </tr>
+
+            <tr>
+                <td><label>Abbrev:</label></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="abbrev" placeholder="Abbrev" required></td>
+            </tr>
+
+            <tr>
+                <td><label>Code:</label></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="code" placeholder="Code" required></td>
+            </tr>
+
+            <tr>
+                <td style="text-align: center;">
+                    <button style="background-color: blue; color: white; border: none; padding: 10px 20px; cursor: pointer;">
+                        Register
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
