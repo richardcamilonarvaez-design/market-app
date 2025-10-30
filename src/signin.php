@@ -10,6 +10,8 @@
     $enc_pass = md5($p_wd);
 
     //step 3: Query to validate data
+
+    //step 3. Query to validate data
     $sql_check_user="
         select
             u.email,
@@ -23,6 +25,9 @@
     ";
 
     //Step 4: Excute query
+
+    //Step 4. Excute query
+
     $res_check=pg_query($conn_supa, $sql_check_user);
 
     if(pg_num_rows($res_check) > 0){
