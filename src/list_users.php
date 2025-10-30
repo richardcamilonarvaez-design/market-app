@@ -40,7 +40,7 @@ require('../config/database.php')
 
                 $result =pg_query($conn_local, $sql_users);
                 if(!$result){
-                    die("error". pg_last_error());
+                    die("Error". pg_last_error());
                 }
 
                 while ($row = pg_fetch_assoc($result)){
@@ -54,7 +54,7 @@ require('../config/database.php')
                             <a href ='#'>
                                 <img src = 'icons/search.png' width='20'>
                             </a>
-                            <a href ='#'>
+                            <a href ='edit_users_form.php?userId=".$row['user_id']."'>
                                 <img src = 'icons/refresh.png' width='20'>
                             </a>
                             <a href ='delete_user.php?userId=".$row['user_id']."'>
