@@ -7,8 +7,6 @@
 
     if(isset($_SESSION['session_user_id'])){
         header('refresh:0;url=main.php');
-    }else{
-        header('refresh:0;url=error403.html');
     }
 
     //Step 2: get form-data
@@ -18,13 +16,11 @@
     //$enc_pass = password_hash($p_wd, PASSWORD_DEFAULT);
     $enc_pass = md5($p_wd);
 
-    //step 3: Query to validate data
-
     //step 3. Query to validate data
     $sql_check_user="
         select
             u.id,
-            u.firstname || '' ||u.lastnam as fullname,
+            u.firstname || ' ' || u.lastname as fullname,
             u.email,
             u.password
         from 
@@ -36,7 +32,7 @@
     ";
     
     //Step 4. Excute query
-    $res_check=pg_query($conn_supa, $sql_check_user);
+    $res_check=pg_query($conn_local, $sql_check_user);
 
     $row = pg_fetch_assoc($res_check);
     $_SESSION['session_user_id']=$row['id'];

@@ -1,8 +1,8 @@
 <?php
     session_start();
 
-    if(isset($_SESSION['session_user_id'])){
-        header('refresh:0;url=main.php');
+    if(!isset($_SESSION['session_user_id'])){
+        header('refresh:0;url=error403.html');
     }
 ?>
 
@@ -15,7 +15,7 @@
     <title>Marketapp - Home</title>
 </head>
 <body bgcolor="cadffb">
-    <center><h6><b><?php echo $_SESSION['session_user_fullname'];?></b>Here print your name</h6></center>
+    <center><h6><b>User: </b><?php echo $_SESSION['session_user_fullname'];?></h6></center>
     <a href="list_users.php">List all users</a>|
     <a href="logout.php">Logout</a>
 </body>
