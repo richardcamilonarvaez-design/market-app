@@ -26,9 +26,10 @@
                     <th>Fullname</th>
                     <th>E-mail</th>
                     <th>Id number</th>
-                    <th>phone number</th>
-                    <th>status</th>
-                    <th>options</th>
+                    <th>Phone number</th>
+                    <th>Status</th>
+                    <th>Photo</th>
+                    <th>Options</th>
                 </tr>
             </thead>
             <?php 
@@ -41,7 +42,8 @@
 	                u.mobile_number,
 	                case 
                         when u.status = true then 'Active' else 'Inactive'
-	                end as status
+	                end as status,
+                    u.url_photo
                 from users u";
 
                 $result =pg_query($conn_local, $sql_users);
@@ -56,6 +58,7 @@
                             <td>".$row['id_number']."</td>
                             <td>".$row['mobile_number']."</td>
                             <td>".$row['status']."</td>
+                            <td align='center'><img src=".$row['url_photo']." width='30'></td>
                             <td>
                             <a href ='#'>
                                 <img src = 'icons/search.png' width='20'>

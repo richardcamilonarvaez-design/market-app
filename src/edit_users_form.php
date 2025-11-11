@@ -27,7 +27,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form name="edit-user-form" action="update_user.php" method="post">
+    <center><form name="edit-user-form" action="update_user.php" method="post">
         <input
             type="hidden"
             name="iduser"
@@ -56,6 +56,9 @@
             value="<?php echo $lname?>"
             required
         /><br><br>
+        <label>User photo</label><br>
+        <input type="file" name="photo_user">
+        <br><br>
         <button style="background-color: #007bff; color: white; border: none; padding: 12px 24px; cursor: pointer; border-radius: 12px; font-size: 16px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: background-color 0.3s ease, transform 0.3s ease;">Update user</button>
 
     </form>
