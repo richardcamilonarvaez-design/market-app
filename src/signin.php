@@ -22,7 +22,8 @@
             u.id,
             u.firstname || ' ' || u.lastname as fullname,
             u.email,
-            u.password
+            u.password,
+            u.url_photo
         from 
             users u
         where 
@@ -37,8 +38,10 @@
     $row = pg_fetch_assoc($res_check);
     $_SESSION['session_user_id']=$row['id'];
     $_SESSION['session_user_fullname']=$row['fullname'];
+    $_SESSION['session_user_url_photo']=$row['url_photo'];
 
     if(pg_num_rows($res_check) > 0){
+        //echo "User exists
         header('refresh:0;url=main.php');
     }else{
         echo "Verify data!!!";

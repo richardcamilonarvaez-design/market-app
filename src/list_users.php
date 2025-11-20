@@ -1,12 +1,12 @@
 <?php
 //step 1. Get database connection
     require('../config/database.php');
-
+ /*
     session_start();
 
     if(!isset($_SESSION['session_user_id'])){
         header('refresh:0;url=error403.html');
-    }
+    }*/
 ?>
 
 <!DOCTYPE html>

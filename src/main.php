@@ -4,6 +4,8 @@
     if(!isset($_SESSION['session_user_id'])){
         header('refresh:0;url=error403.html');
     }
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +17,17 @@
     <title>Marketapp - Home</title>
 </head>
 <body bgcolor="cadffb">
-    <center><h6><b>User: </b><?php echo $_SESSION['session_user_fullname'];?></h6></center>
+    <table border= "0" align="center">
+    <tr>
+        <td><b>User: </b>
+            <?php echo $_SESSION['session_user_fullname'];?>
+        </td>
+        <td>
+            <!--<img src="<?//php echo $_SESSION['session_user_url_photo'] ?>" alt="User icon" class="user-icon" width='30'>-->
+            <?php echo"<img src='".$_SESSION['session_user_url_photo']."'width='30'>";?>
+        </td>
+    </tr>
+    </table>
     <a href="list_users.php">List all users</a>|
     <a href="logout.php">Logout</a>
 </body>
